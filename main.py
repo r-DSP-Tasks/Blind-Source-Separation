@@ -63,7 +63,13 @@ class decomposer(ui.Ui_MainWindow):
             self.logger.debug("starting extraction of data")
             self.rate, self.data = fns.load_wav(self.loaded_file)
             # Start Decomposition
-            self.decompose()
+            print(self.data.shape)
+            if len(self.data.shape) == 1:
+                self.logger.debug("loaded a mono file")
+                self.show_message("Warning", "Load a stereo file", QtWidgets.QMessageBox.Ok,
+                                  QtWidgets.QMessageBox.Warning)
+            else:
+                self.decompose()
 
             print("done")
             print("Loaded file %s , shape %s " % (self.loaded_file, self.data.shape))

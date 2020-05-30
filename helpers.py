@@ -49,8 +49,9 @@ def decompose(data: np.array):
     :param data: numpy array to be decomposed
     :return: numpy array of different components
     """
-    ica = FastICA(random_state=0)
+    ica = FastICA(max_iter=1500, random_state=0)
     out_ica = ica.fit_transform(data)
+
     return get_channels(out_ica)
 
 
