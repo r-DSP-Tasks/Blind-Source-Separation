@@ -39,6 +39,7 @@ class decomposer(ui.Ui_MainWindow):
         self.load.clicked.connect(self.load_file)
         for indx, btn in enumerate(self.play_btns):
             self.play_btns[indx].clicked.connect(partial(self.play, indx))
+        self.save.clicked.connect(self.save_results)
 
     def load_file(self):
         """
@@ -97,6 +98,17 @@ class decomposer(ui.Ui_MainWindow):
             self.logger.debug("Fail to play")
             self.show_message("Warning", "Load A file First", QtWidgets.QMessageBox.Ok, QtWidgets.QMessageBox.Warning)
             pass
+
+    def save_results(self):
+        """
+        Saves extracted results into results/
+        """
+
+        self.statusbar.showMessage("Saving .. ")
+        fns.save_wav("results/1.wav", data=self.channels[0], sr=self.rate)
+        fns.save_wav("results/2.wav", data=self.channels[1], sr=self.rate)
+        self.statusbar.showMessage("Files saved at `results/`")
+        self.logger.debug("Saving done")
 
     def show_message(self, header, message, button, icon):
         """

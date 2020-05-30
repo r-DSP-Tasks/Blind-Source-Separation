@@ -20,6 +20,18 @@ def load_wav(file_path: str):
     return rate, data
 
 
+def save_wav(filepath: str, data: np.array, sr: int):
+    """
+    Save wav file.
+
+    :param filepath: string path to location.
+    :param data: numpy array generated data to be saved.
+    :param sr: sample rate
+    """
+    if data is not None:
+        wavfile.write(filepath, rate=sr, data=data)
+
+
 def get_channels(data: np.array):
     """
     Extract channels from two channeled Data.
@@ -42,5 +54,27 @@ def decompose(data: np.array):
     return get_channels(out_ica)
 
 
+def mixer(channel1: np.array, channel2: np.array):
+    """
+    Mix 2 mono files into one
+
+    :param channel1: one dimensional array
+    :param channel2: one dimensional array
+    :return: two dimensional arrays
+    """
+    return np.array([list(row) for row in zip(channel1, channel2)])
 
 
+if __name__ == '__main__':
+    mix1 = load_wav("cocktail/rsm2_mA.wav")
+    mix2 = load_wav("cocktail/rsm2_mB.wav")
+    rate = mix1[0]
+    print("Rates are Equal", mix1[0] == mix2[0])
+
+    print(mix1[1].shape)
+    print(mix2[1].shape)
+
+    mix = mixer(mix1[1], mix2[1])
+    print(mix)
+
+    save_wav("cocktail/cocktailparty.wav", sr=mix2[0], data=mix)
