@@ -67,8 +67,10 @@ def mixer(channel1: np.array, channel2: np.array):
 
 
 if __name__ == '__main__':
-    mix1 = load_wav("cocktail/rsm2_mA.wav")
-    mix2 = load_wav("cocktail/rsm2_mB.wav")
+    # mix1 = load_wav("cocktail/rsm2_mA.wav")
+    # mix2 = load_wav("cocktail/rsm2_mB.wav")
+    mix1 = load_wav("../../Downloads/rss_mA.wav")
+    mix2 = load_wav("../../Downloads/rss_mB.wav")
     rate = mix1[0]
     print("Rates are Equal", mix1[0] == mix2[0])
 
@@ -78,4 +80,4 @@ if __name__ == '__main__':
     mix = mixer(mix1[1], mix2[1])
     print(mix)
 
-    save_wav("cocktail/cocktailparty.wav", sr=mix2[0], data=mix)
+    save_wav("cocktail/cocktailparty2.wav", sr=mix2[0], data=mix)

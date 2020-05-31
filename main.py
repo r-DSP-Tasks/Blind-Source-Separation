@@ -4,7 +4,8 @@ import logging
 import helpers as fns
 import sounddevice as sd
 from time import sleep
-from functools import  partial
+from functools import partial
+
 
 class decomposer(ui.Ui_MainWindow):
     """
