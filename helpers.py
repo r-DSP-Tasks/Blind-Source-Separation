@@ -39,7 +39,7 @@ def get_channels(data: np.array):
     :param data: numpy array to extract .
     :return: numpy arrays with each channel.
     """
-    return [data[:, ch] for ch in range(data.shape[1])]
+    return [np.array(data[:, ch], dtype=np.int16) for ch in range(data.shape[1])]
 
 
 def decompose(data: np.array):
@@ -51,6 +51,8 @@ def decompose(data: np.array):
     """
     ica = FastICA(max_iter=1500, random_state=0)
     out_ica = ica.fit_transform(data)
+    out_ica = out_ica * (2 ** 15 - 1) / np.max(np.abs(out_ica))
+    out_ica = out_ica.astype(np.int16)
 
     return get_channels(out_ica)
 

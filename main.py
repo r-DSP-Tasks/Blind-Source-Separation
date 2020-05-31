@@ -2,7 +2,8 @@ import mainUI as ui
 from PyQt5 import QtWidgets, QtGui
 import logging
 import helpers as fns
-import sounddevice as sd
+import simpleaudio as sa
+import numpy as np
 from time import sleep
 from functools import partial
 
@@ -94,7 +95,8 @@ class decomposer(ui.Ui_MainWindow):
         self.logger.debug("Playing .. ")
 
         if self.channels[data] is not None:
-            sd.play(self.channels[data], self.rate)
+            sa.stop_all()
+            sa.play_buffer(self.channels[data], 1, 2, self.rate)
             sleep(1)
 
         else:
