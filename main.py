@@ -64,17 +64,13 @@ class decomposer(ui.Ui_MainWindow):
             self.logger.debug("starting extraction of data")
             self.rate, self.data = fns.load_wav(self.loaded_file)
             # Start Decomposition
-            print(self.data.shape)
             if len(self.data.shape) == 1:
                 self.logger.debug("loaded a mono file")
                 self.show_message("Warning", "Load a stereo file", QtWidgets.QMessageBox.Ok,
                                   QtWidgets.QMessageBox.Warning)
             else:
-                self.decompose()
 
-            print("done")
-            print("Loaded file %s , shape %s " % (self.loaded_file, self.data.shape))
-            print(self.channels)
+                self.decompose()
 
             self.statusbar.showMessage("Loading Done")
             self.logger.debug("Loading Done")
@@ -112,8 +108,8 @@ class decomposer(ui.Ui_MainWindow):
         """
 
         self.statusbar.showMessage("Saving .. ")
-        fns.save_wav("results/1.wav", data=self.channels[0], sr=self.rate)
-        fns.save_wav("results/2.wav", data=self.channels[1], sr=self.rate)
+        fns.save_wav("results/"+self.loaded_file.split("/")[-1]+"1.wav", data=self.channels[0], sr=self.rate)
+        fns.save_wav("results/"+self.loaded_file.split("/")[-1]+"2.wav", data=self.channels[1], sr=self.rate)
         self.statusbar.showMessage("Files saved at `results/`")
         self.logger.debug("Saving done")
 
